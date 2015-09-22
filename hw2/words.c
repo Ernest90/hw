@@ -99,4 +99,3 @@ main( int argc, char *argv[] ) {
   print_dict( d );
   fclose( infile );
 }
-
