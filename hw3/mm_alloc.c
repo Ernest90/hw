@@ -23,11 +23,11 @@
 #define align4(x)  (((((x)-1)>>2)<<2)+4)
 
 
-/* Global variables                                                      */
-s_block_ptr base = NULL; /* beginning point of heap                @HW3A */
-s_block_ptr last;        /* last visited block                     @HW3A */
+/* Global variables                                                */
+s_block_ptr base = NULL; /* beginning point of heap               */
+s_block_ptr last;        /* last visited block                    */
 
-/* Internal functions                                              @HW3A */
+/* Internal functions                                            */
 
 /* Split block according to size, b must exist */
 /* void split_block (s_block_ptr b, size_t s); */
@@ -45,47 +45,47 @@ s_block_ptr last;        /* last visited block                     @HW3A */
 
 
 /* Traverse the chunks list and stop when find a free block with enough space */
-static s_block_ptr find_block(size_t size)    /*                @HW3A */
+static s_block_ptr find_block(size_t size)   
 {  
   s_block_ptr p = base;
-  for (; p != NULL; p = p->next)              /*                @HW3A */
+  for (; p != NULL; p = p->next)              
    {
       last = p;
-      if (p->free && p->size >= size)         /*                @HW3A */
-          return p;                           /*                @HW3A */
+      if (p->free && p->size >= size)       
+          return p;                           
    }
     
-  return NULL;                                /*                @HW3A */
+  return NULL;                                
 }
 
-/* Invoke sbrk to extend break point                            @HW3A */
-static s_block_ptr extend_heap (size_t size)                 /* @HW3A */
+/* Invoke sbrk to extend break point                         */
+static s_block_ptr extend_heap (size_t size)                 
 {    
-    /* Current break is address of the new block                      */
-    s_block_ptr new_block = (s_block_ptr)sbrk(0);            /* @HW3A */
-    if ((int)sbrk(size + S_BLOCK_SIZE) == -1)                /* @HW3A */ 
-        return NULL;                                         /* @HW3A */
-    new_block->size = size;                                  /* @HW3A */
-    new_block->ptr  = new_block->data;                       /* @HW3A */
-    new_block->free = TRUE;                                  /* @HW3A */
+    /* Current break is address of the new block             */
+    s_block_ptr new_block = (s_block_ptr)sbrk(0);           
+    if ((int)sbrk(size + S_BLOCK_SIZE) == -1)                
+        return NULL;                                         
+    new_block->size = size;                                  
+    new_block->ptr  = new_block->data;                       
+    new_block->free = TRUE;                                 
      
-    if (base == NULL) /* heap is empty                          @HW3A */
+    if (base == NULL) /* heap is empty                       */
     {
-        new_block->prev = new_block->prev = NULL;  /*           @HW3A */
-        base = new_block;                          /*           @HW3A */
+        new_block->prev = new_block->prev = NULL;  
+        base = new_block;                          
     }
     else 
     {
-        ASSERT(last->next == NULL);                /*           @HW3A */
-        new_block->next = NULL;                    /*           @HW3A */
-        new_block->prev = last;                    /*           @HW3A */
-        last->next = new_block;                    /*           @HW3A */
+        ASSERT(last->next == NULL);                
+        new_block->next = NULL;                   
+        new_block->prev = last;                  
+        last->next = new_block;                   
     }
     printf("%x %x %d\n", new_block, new_block->ptr, new_block->size); 
-    return new_block;                              /*           @HW3A */
+    return new_block;                              
 }
 
-static s_block_ptr split_block(s_block_ptr p, size_t new_size)/*@HW3A */
+static s_block_ptr split_block(s_block_ptr p, size_t new_size)
 {
     s_block_ptr new_block = NULL;              
     if (p->size >= new_size + S_BLOCK_SIZE + 4)
@@ -283,5 +283,8 @@ void mm_free(void* ptr)
     
 #endif
 }
+
+
+
 
 
