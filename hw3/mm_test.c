@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 
     array[1] = (int*)mm_malloc(20);
     fprintf(stderr, "array[0]: %x array[1]: %x\n", array[0], array[1]);
-    assert(array[1] > array[4]);
+    assert(array[1] < array[4]);
     fprintf(stderr, "VAR6: OK\n");
     mm_free(array[1]);
     printf("VAR6: OK, the first fitting algorithm works correctly!\n");
